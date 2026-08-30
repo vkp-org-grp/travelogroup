@@ -1,4 +1,4 @@
-# Airlines Group Bookings — Next.js rebuild
+# Travelo Group — Next.js rebuild
 
 Next.js 14 (App Router) + Tailwind + Framer Motion. Blog runs on **headless
 WordPress via WPGraphQL**; everything else is static, built at deploy time.
@@ -77,7 +77,7 @@ Until this is set, the blog renders 3 placeholder posts (see
 - For instant updates the moment you hit Publish, install a webhook plugin
   on WordPress (e.g. "WP Webhooks") and point it at:
   ```
-  POST https://airlinesgroupbookings.com/api/revalidate?secret=YOUR_REVALIDATE_SECRET
+  POST https://travelogroup.com/api/revalidate?secret=YOUR_REVALIDATE_SECRET
   ```
   on the `publish_post` / `save_post` event. Set the same secret in
   `REVALIDATE_SECRET` in `.env.local`. See `app/api/revalidate/route.js`.

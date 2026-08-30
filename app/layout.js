@@ -30,10 +30,10 @@ export const metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: 'Bulk Air Ticket Booking | Airlines Group Travel Experts',
-    template: '%s · Airlines Group Bookings',
+    template: '%s · Travelo Group',
   },
   description:
-    'Book group airline tickets with Airlines Group Bookings. Negotiated fares for 10+ passengers across 18 airline partners. Get a free quote today.',
+    'Book group airline tickets with Travelo Group. Negotiated fares for 10+ passengers across 18 airline partners. Get a free quote today.',
   keywords: [
     'group airline tickets',
     'bulk air ticket booking',

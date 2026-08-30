@@ -1,12 +1,12 @@
 export const site = {
-  name: 'Airlines Group Bookings',
+  name: 'Travelo Group',
   legalName: 'Global Group Solutions LLC',
-  domain: 'airlinesgroupbookings.com',
-  url: 'https://airlinesgroupbookings.com',
+  domain: 'travelogroup.com',
+  url: 'https://travelogroup.com',
 
   phone: '+1-888-608-7453',
   phoneHref: 'tel:+18886087453',
-  email: 'support@airlinesgroupbookings.com',
+  email: 'support@travelogroup.com',
   address: ['11961 Cobble Brook Dr', 'Rancho Cordova, CA 95742'],
 
   hours: '24/7 phone support',
