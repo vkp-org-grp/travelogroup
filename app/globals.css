@@ -1,0 +1,110 @@
+@import 'react-phone-number-input/style.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  @apply bg-paper text-navy font-body antialiased;
+}
+
+::selection {
+  background: #d9a441;
+  color: #0b1e3a;
+}
+
+:focus-visible {
+  outline: 2px solid #d9a441;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1340px] px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.28em] text-sky;
+  }
+
+  .eyebrow-dark {
+    @apply font-mono text-[11px] uppercase tracking-[0.28em] text-gold;
+  }
+
+  .h-display {
+    @apply font-display font-extrabold leading-[0.98] tracking-[-0.02em];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-body text-sm font-semibold transition-all duration-200 active:scale-[0.98];
+  }
+
+  .btn-gold {
+    @apply btn bg-gold text-navy hover:shadow-glow hover:-translate-y-0.5;
+  }
+
+  .btn-navy {
+    @apply btn bg-navy text-white hover:bg-navy2 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line/50 bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-white;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-black/10 bg-white px-4 py-3 font-body text-sm text-navy outline-none transition-colors placeholder:text-navy/35 focus:border-sky;
+  }
+
+  .PhoneInput {
+    @apply w-full items-center gap-2 rounded-xl border border-black/10 bg-white px-4 py-3 font-body text-sm text-navy transition-colors;
+  }
+
+  .PhoneInput:focus-within {
+    @apply border-sky;
+  }
+
+  .PhoneInputInput {
+    @apply flex-1 border-0 bg-transparent p-0 font-body text-sm text-navy outline-none placeholder:text-navy/35;
+  }
+
+  .PhoneInputCountry {
+    @apply mr-1;
+  }
+
+  .PhoneInputCountrySelectArrow {
+    @apply opacity-40;
+  }
+
+  .field-label {
+    @apply mb-1.5 block font-mono text-[10px] uppercase tracking-[0.18em] text-navy/45;
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-2xl bg-white shadow-card;
+  }
+
+  .grid-lines {
+    background-image: linear-gradient(rgba(34, 52, 90, 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 52, 90, 0.35) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
