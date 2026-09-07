@@ -1,4 +1,4 @@
-# TravelOgroup — Next.js rebuild
+# Travelogroup — Next.js rebuild
 
 Next.js 14 (App Router) + Tailwind + Framer Motion. Blog runs on **headless
 WordPress via WPGraphQL**; everything else is static, built at deploy time.

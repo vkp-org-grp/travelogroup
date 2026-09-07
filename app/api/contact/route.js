@@ -27,27 +27,28 @@ export async function POST(request) {
   const refNo = await getNextRefNumber();
 
   try {
-    await transporter.sendMail({
-      from,
-      to: process.env.SUPPORT_EMAIL,
-      replyTo: email,
-      subject: `New contact enquiry from ${first} ${last} (Ref. No: ${refNo})`,
-      html: `
-        <p><strong>Ref. No:</strong> ${refNo}</p>
-        <p><strong>Name:</strong> ${escapeHtml(first)} ${escapeHtml(last)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
-        <p><strong>Group size:</strong> ${escapeHtml(passengers || 'Not specified')}</p>
-        <p><strong>Message:</strong><br/>${escapeHtml(message).replace(/\n/g, '<br/>')}</p>
-      `,
-    });
-
-    await transporter.sendMail({
-      from: `"${site.name}" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: `We received your message (Ref. No: ${refNo})`,
-      html: autoReplyHtml(refNo),
-    });
+    await Promise.all([
+      transporter.sendMail({
+        from,
+        to: process.env.SUPPORT_EMAIL,
+        replyTo: email,
+        subject: `New contact enquiry from ${first} ${last} (Ref. No: ${refNo})`,
+        html: `
+          <p><strong>Ref. No:</strong> ${refNo}</p>
+          <p><strong>Name:</strong> ${escapeHtml(first)} ${escapeHtml(last)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+          <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+          <p><strong>Group size:</strong> ${escapeHtml(passengers || 'Not specified')}</p>
+          <p><strong>Message:</strong><br/>${escapeHtml(message).replace(/\n/g, '<br/>')}</p>
+        `,
+      }),
+      transporter.sendMail({
+        from: `"${site.name}" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: `We received your message (Ref. No: ${refNo})`,
+        html: autoReplyHtml(refNo),
+      }),
+    ]);
 
     return NextResponse.json({ ok: true, refNo });
   } catch (err) {

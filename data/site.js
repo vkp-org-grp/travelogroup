@@ -1,5 +1,5 @@
 export const site = {
-  name: 'TravelOgroup',
+  name: 'Travelogroup',
   legalName: 'Global Group Solutions LLC',
   domain: 'travelogroup.com',
   url: 'https://travelogroup.com',

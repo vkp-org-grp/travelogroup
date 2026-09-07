@@ -46,28 +46,29 @@ export async function POST(request) {
   const refNo = await getNextRefNumber();
 
   try {
-    await transporter.sendMail({
-      from,
-      to: process.env.SUPPORT_EMAIL,
-      replyTo: email,
-      subject: `New group quote request (${TRIP_LABELS[tripType] || tripType}) (Ref. No: ${refNo})`,
-      html: `
-        <p><strong>Ref. No:</strong> ${refNo}</p>
-        <p><strong>Trip type:</strong> ${escapeHtml(TRIP_LABELS[tripType] || tripType)}</p>
-        ${routeRows(body)}
-        <p><strong>Cabin:</strong> ${escapeHtml(cabin)}</p>
-        <p><strong>Passengers:</strong> ${escapeHtml(passengers)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-      `,
-    });
-
-    await transporter.sendMail({
-      from: `"${site.name}" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: `We received your message (Ref. No: ${refNo})`,
-      html: autoReplyHtml(refNo),
-    });
+    await Promise.all([
+      transporter.sendMail({
+        from,
+        to: process.env.SUPPORT_EMAIL,
+        replyTo: email,
+        subject: `New group quote request (${TRIP_LABELS[tripType] || tripType}) (Ref. No: ${refNo})`,
+        html: `
+          <p><strong>Ref. No:</strong> ${refNo}</p>
+          <p><strong>Trip type:</strong> ${escapeHtml(TRIP_LABELS[tripType] || tripType)}</p>
+          ${routeRows(body)}
+          <p><strong>Cabin:</strong> ${escapeHtml(cabin)}</p>
+          <p><strong>Passengers:</strong> ${escapeHtml(passengers)}</p>
+          <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        `,
+      }),
+      transporter.sendMail({
+        from: `"${site.name}" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: `We received your message (Ref. No: ${refNo})`,
+        html: autoReplyHtml(refNo),
+      }),
+    ]);
 
     return NextResponse.json({ ok: true, refNo });
   } catch (err) {
