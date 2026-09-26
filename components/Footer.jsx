@@ -1,15 +1,19 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import { footerLinks, site } from '@/data/site';
 import Logo from '@/components/Logo';
 import { airlines } from '@/data/airlines';
 
 const socials = [
-  { Icon: Facebook, label: 'Facebook' },
-  { Icon: Instagram, label: 'Instagram' },
-  { Icon: Twitter, label: 'X' },
-  { Icon: Linkedin, label: 'LinkedIn' },
+  { Icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61594739818465' },
+  { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/_travelogroup?stkn=MTQ5Ym01ZnBoc3ZiZA==' },
+  { Icon: Twitter, label: 'X', href: 'https://x.com/_travelOgroup' },
+  { Icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/travelo-group-64100043a/' },
 ];
+
+const TRUSTPILOT_URL =
+  'https://www.trustpilot.com/review/travelogroup.com?_gl=1*1nha7dt*_gcl_au*MTkxMDUxNzEzMC4xNzkwMTg0NDky*_ga*MzQ2NjM1NTAwLjE3OTAxODQ1MDA.*_ga_11HBWMC274*czE3OTAxODQ0OTkkbzEkZzEkdDE3OTAxODQ1NjkkajUxJGwwJGgw';
 
 export default function Footer() {
   return (
@@ -32,10 +36,12 @@ export default function Footer() {
             corporate teams, student tours, weddings, and community trips, booked at the best possible fares.
           </p>
           <div className="mt-7 flex gap-2">
-            {socials.map(({ Icon, label }) => (
+            {socials.map(({ Icon, label, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="grid h-10 w-10 place-items-center rounded-full border border-white/12 text-white/60 transition-colors hover:border-gold hover:bg-gold hover:text-navy"
               >
@@ -43,6 +49,22 @@ export default function Footer() {
               </a>
             ))}
           </div>
+
+          <a
+            href={TRUSTPILOT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ARC accredited agency — read our reviews on Trustpilot"
+            className="mt-6 inline-flex items-center"
+          >
+            <Image
+              src="/ARC-logo.png"
+              alt="ARC accredited agency"
+              width={97}
+              height={40}
+              className="h-10 w-auto object-contain transition-[filter] duration-200 hover:brightness-0 hover:invert"
+            />
+          </a>
         </div>
 
         <div>
