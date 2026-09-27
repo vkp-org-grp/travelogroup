@@ -12,8 +12,16 @@ const socials = [
   { Icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/travelo-group-64100043a/' },
 ];
 
-const TRUSTPILOT_URL =
-  'https://www.trustpilot.com/review/travelogroup.com?_gl=1*1nha7dt*_gcl_au*MTkxMDUxNzEzMC4xNzkwMTg0NDky*_ga*MzQ2NjM1NTAwLjE3OTAxODQ1MDA.*_ga_11HBWMC274*czE3OTAxODQ0OTkkbzEkZzEkdDE3OTAxODQ1NjkkajUxJGwwJGgw';
+const TRUST_BADGES = [
+  { src: '/ARC-logo.png', alt: 'ARC accredited agency', width: 97, height: 40 },
+  { src: '/iata-logo.svg', alt: 'IATA', width: 67, height: 42 },
+  { src: '/visa.png', alt: 'Visa', width: 160, height: 103 },
+  { src: '/master.png', alt: 'Mastercard', width: 160, height: 103 },
+  { src: '/americon.png', alt: 'American Express', width: 160, height: 99 },
+  { src: '/discover.png', alt: 'Discover', width: 160, height: 103 },
+  { src: '/paypal.png', alt: 'PayPal', width: 160, height: 94 },
+  { src: '/cloudflare-logo.webp', alt: 'Cloudflare', width: 114, height: 39 },
+];
 
 export default function Footer() {
   return (
@@ -49,22 +57,6 @@ export default function Footer() {
               </a>
             ))}
           </div>
-
-          <a
-            href={TRUSTPILOT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="ARC accredited agency — read our reviews on Trustpilot"
-            className="mt-6 inline-flex items-center"
-          >
-            <Image
-              src="/ARC-logo.png"
-              alt="ARC accredited agency"
-              width={97}
-              height={40}
-              className="h-10 w-auto object-contain transition-[filter] duration-200 hover:brightness-0 hover:invert"
-            />
-          </a>
         </div>
 
         <div>
@@ -136,6 +128,14 @@ export default function Footer() {
           logos are the property of their respective owners and are used only to describe the group fares we can
           arrange. Fares are subject to availability and confirmed at the time of booking.
         </p>
+
+        <div className="mt-4 rounded-xl bg-white p-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            {TRUST_BADGES.map((b) => (
+              <Image key={b.src} src={b.src} alt={b.alt} width={b.width} height={b.height} className="h-8 w-auto object-contain" />
+            ))}
+          </div>
+        </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/[0.07] pt-8 text-[12px] text-white/35 sm:flex-row">
           <p>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
