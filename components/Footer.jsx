@@ -13,8 +13,8 @@ const socials = [
 ];
 
 const TRUST_BADGES = [
-  { src: '/ARC-logo.png', alt: 'ARC accredited agency', width: 97, height: 40 },
-  { src: '/iata-logo.svg', alt: 'IATA', width: 67, height: 42 },
+  // { src: '/ARC-logo.png', alt: 'ARC accredited agency', width: 97, height: 40 },
+  // { src: '/iata-logo.svg', alt: 'IATA', width: 67, height: 42 },
   { src: '/visa.png', alt: 'Visa', width: 160, height: 103 },
   { src: '/master.png', alt: 'Mastercard', width: 160, height: 103 },
   { src: '/americon.png', alt: 'American Express', width: 160, height: 99 },
