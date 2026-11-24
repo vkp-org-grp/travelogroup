@@ -41,6 +41,7 @@ export const metadata = {
     'corporate group travel',
     'school group flights',
   ],
+  alternates: { canonical: './' },
   openGraph: {
     title: 'Bulk Air Ticket Booking | Airlines Group Travel Experts',
     description:
@@ -49,7 +50,10 @@ export const metadata = {
     siteName: site.name,
     type: 'website',
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
+  verification: {
+    google: 'eI5w84KxJ3jc1cq46ONo-d6TJd8NEkDRYBOXPXuqhTY',
+  },
 };
 
 export const viewport = { themeColor: '#0B1E3A' };
