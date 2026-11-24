@@ -9,14 +9,13 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // www -> non-www (permanent), keeping the path
       {
-        source: '/',
+        source: '/:path*',
         has: [{ type: 'host', value: 'www.travelogroup.com' }],
         destination: 'https://travelogroup.com/',
         permanent: true,
       },
-      // files (sitemap.xml, robots.txt, images…) keep no trailing slash
+      
       {
         source: '/:file(.+\\.[a-zA-Z0-9]+)',
         has: [{ type: 'host', value: 'www.travelogroup.com' }],
