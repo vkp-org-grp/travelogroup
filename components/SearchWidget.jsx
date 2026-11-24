@@ -100,7 +100,7 @@ export default function SearchWidget() {
     };
 
     try {
-      const res = await fetch('/api/quote', {
+      const res = await fetch('/api/quote/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -340,7 +340,7 @@ export default function SearchWidget() {
         <p className="mt-3 text-[11px] leading-relaxed text-navy/40">
           By submitting, you consent to receive calls/texts about your group quote from {site.legalName}. Reply STOP
           to opt out. See our{' '}
-          <a href="/privacy-policy" className="underline">
+          <a href="/privacy-policy/" className="underline">
             privacy policy
           </a>
           .

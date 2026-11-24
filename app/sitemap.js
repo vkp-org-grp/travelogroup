@@ -21,31 +21,31 @@ export default async function sitemap() {
     { url: '/refund-policy', priority: 0.3 },
     { url: '/terms-condition', priority: 0.3 },
   ].map((r) => ({
-    url: `${site.url}${r.url}`,
+    url: r.url === '/' ? `${site.url}/` : `${site.url}${r.url}/`,
     lastModified: now,
     priority: r.priority,
   }));
 
   const airlineRoutes = airlines.map((a) => ({
-    url: `${site.url}/group-booking/${a.slug}`,
+    url: `${site.url}/group-booking/${a.slug}/`,
     lastModified: now,
     priority: 0.8,
   }));
 
   const businessRoutes = businessClass.map((b) => ({
-    url: `${site.url}/premium-class/${b.slug}`,
+    url: `${site.url}/premium-class/${b.slug}/`,
     lastModified: now,
     priority: 0.7,
   }));
 
   const dealRoutes = deals.map((d) => ({
-    url: `${site.url}/deals/${d.slug}`,
+    url: `${site.url}/deals/${d.slug}/`,
     lastModified: now,
     priority: 0.6,
   }));
 
   const destinationRoutes = destinations.map((d) => ({
-    url: `${site.url}/destinations/${d.slug}`,
+    url: `${site.url}/destinations/${d.slug}/`,
     lastModified: now,
     priority: 0.6,
   }));
@@ -54,7 +54,7 @@ export default async function sitemap() {
   try {
     const posts = await getAllPosts();
     blogRoutes = posts.map((p) => ({
-      url: `${site.url}/blog/${p.slug}`,
+      url: `${site.url}/blog/${p.slug}/`,
       lastModified: p.modified ? new Date(p.modified) : now,
       priority: 0.6,
     }));
