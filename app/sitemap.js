@@ -3,9 +3,9 @@ import { airlines } from '@/data/airlines';
 import { businessClass } from '@/data/businessClass';
 import { deals } from '@/data/deals';
 import { destinations } from '@/data/destinations';
-import { getAllPosts } from '@/lib/wordpress';
+import { getAllPosts } from '@/lib/blog';
 
-export default async function sitemap() {
+export default function sitemap() {
   const now = new Date();
 
   const staticRoutes = [
@@ -50,17 +50,11 @@ export default async function sitemap() {
     priority: 0.6,
   }));
 
-  let blogRoutes = [];
-  try {
-    const posts = await getAllPosts();
-    blogRoutes = posts.map((p) => ({
-      url: `${site.url}/blog/${p.slug}/`,
-      lastModified: p.modified ? new Date(p.modified) : now,
-      priority: 0.6,
-    }));
-  } catch {
-    blogRoutes = [];
-  }
+  const blogRoutes = getAllPosts().map((p) => ({
+    url: `${site.url}/blog/${p.slug}/`,
+    lastModified: p.modified ? new Date(p.modified) : now,
+    priority: 0.6,
+  }));
 
   return [
     ...staticRoutes,

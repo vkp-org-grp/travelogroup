@@ -2,9 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
 import { Reveal } from '@/components/Motion';
-import { getAllPosts } from '@/lib/wordpress';
-
-export const revalidate = 3600; // ISR: refresh at most every hour; instant via /api/revalidate webhook
+import { getAllPosts } from '@/lib/blog';
 
 export const metadata = {
   title: 'Blog — Group Travel Guides & Airline Tips',
@@ -15,8 +13,8 @@ function formatDate(d) {
   return new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
-export default async function BlogIndex() {
-  const posts = await getAllPosts();
+export default function BlogIndex() {
+  const posts = getAllPosts();
 
   return (
     <>
@@ -29,8 +27,8 @@ export default async function BlogIndex() {
                 <Link key={p.slug} href={`/blog/${p.slug}`} className="group card flex flex-col">
                   <div className="relative h-64 overflow-hidden">
                     <Image
-                      src={p.featuredImage?.node?.sourceUrl || '/images/1436491865332-7a61a109cc05.jpg'}
-                      alt={p.featuredImage?.node?.altText || p.title}
+                      src={p.image}
+                      alt={p.imageAlt}
                       fill
                       unoptimized
                       sizes="(max-width: 768px) 100vw, 33vw"
@@ -39,8 +37,8 @@ export default async function BlogIndex() {
                   </div>
                   <div className="flex flex-1 flex-col p-6">
                     <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-navy/40">{formatDate(p.date)}</p>
-                    <h2 className="mt-3 font-display text-lg font-bold leading-snug" dangerouslySetInnerHTML={{ __html: p.title }} />
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-navy/55" dangerouslySetInnerHTML={{ __html: p.excerpt?.replace(/<[^>]+>/g, '') }} />
+                    <h2 className="mt-3 font-display text-lg font-bold leading-snug">{p.title}</h2>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-navy/55">{p.excerpt}</p>
                   </div>
                 </Link>
               ))}

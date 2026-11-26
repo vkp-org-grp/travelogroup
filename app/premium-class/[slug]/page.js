@@ -55,7 +55,7 @@ export default function PremiumClassPage({ params }) {
             {airline && (
               <p className="mt-8 text-sm text-navy/55">
                 Looking for standard group Economy on {b.name} instead?{' '}
-                <a href={`/group-booking/${airline.slug}`} className="font-semibold text-sky underline">
+                <a href={`/group-booking/${airline.slug}/`} className="font-semibold text-sky underline">
                   See {b.name} group booking
                 </a>
                 .

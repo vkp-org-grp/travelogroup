@@ -1,7 +1,10 @@
 import LegalPage from '@/components/LegalPage';
 import { site } from '@/data/site';
 
-export const metadata = { title: 'Privacy Policy' };
+export const metadata = {
+  title: 'Privacy Policy',
+  description: 'How Travelogroup collects, uses and protects the personal information you share when requesting a group travel quote.',
+};
 
 export default function Privacy() {
   return (

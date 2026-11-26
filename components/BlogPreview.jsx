@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { getAllPosts } from '@/lib/wordpress';
+import { getAllPosts } from '@/lib/blog';
 import { Reveal } from '@/components/Motion';
 
 function formatDate(d) {
@@ -14,8 +14,8 @@ const HOME_PREVIEW_IMAGES = [
   '/images/1524231757912-21f4fe3a7200.jpg',
 ];
 
-export default async function BlogPreview() {
-  const posts = (await getAllPosts()).slice(0, 3);
+export default function BlogPreview() {
+  const posts = getAllPosts().slice(0, 3);
   if (!posts.length) return null;
 
   return (
@@ -39,7 +39,7 @@ export default async function BlogPreview() {
               <div className="relative h-64 overflow-hidden">
                 <Image
                   src={HOME_PREVIEW_IMAGES[i % HOME_PREVIEW_IMAGES.length]}
-                  alt={p.featuredImage?.node?.altText || p.title}
+                  alt={p.imageAlt}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-110"
@@ -47,11 +47,8 @@ export default async function BlogPreview() {
               </div>
               <div className="flex flex-1 flex-col p-6">
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-navy/40">{formatDate(p.date)}</p>
-                <h3
-                  className="mt-3 font-display text-lg font-bold leading-snug"
-                  dangerouslySetInnerHTML={{ __html: p.title }}
-                />
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-navy/55" dangerouslySetInnerHTML={{ __html: p.excerpt?.replace(/<[^>]+>/g, '') }} />
+                <h3 className="mt-3 font-display text-lg font-bold leading-snug">{p.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-navy/55">{p.excerpt}</p>
                 <span className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-sky">
                   Read more
                   <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />

@@ -43,14 +43,14 @@ export const metadata = {
     'school group flights',
   ],
   alternates: { canonical: './' },
+  // og:title / og:description are filled from each page's title and description
   openGraph: {
-    title: 'Bulk Air Ticket Booking | Airlines Group Travel Experts',
-    description:
-      'Negotiated group fares for 10+ passengers. Corporate teams, school tours, weddings, and sports crews.',
     url: './',
     siteName: site.name,
     type: 'website',
+    images: [{ url: '/images/1436491865332-7a61a109cc05.jpg', width: 1920, height: 1275, alt: 'Travelogroup group air travel' }],
   },
+  twitter: { card: 'summary_large_image' },
   robots: { index: false, follow: false },
   verification: {
     google: 'eI5w84KxJ3jc1cq46ONo-d6TJd8NEkDRYBOXPXuqhTY',

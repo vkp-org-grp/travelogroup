@@ -1,7 +1,10 @@
 import LegalPage from '@/components/LegalPage';
 import { site } from '@/data/site';
 
-export const metadata = { title: 'Terms & Conditions' };
+export const metadata = {
+  title: 'Terms & Conditions',
+  description: 'Terms and conditions for using the Travelogroup website and booking group air travel through our team.',
+};
 
 export default function Terms() {
   return (

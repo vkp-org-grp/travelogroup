@@ -1,7 +1,7 @@
 # Travelogroup — Next.js rebuild
 
-Next.js 14 (App Router) + Tailwind + Framer Motion. Blog runs on **headless
-WordPress via WPGraphQL**; everything else is static, built at deploy time.
+Next.js 14 (App Router) + Tailwind + Framer Motion. The whole site, including
+the blog, is static and built at deploy time; no CMS is needed.
 
 ## Run it
 
@@ -26,15 +26,15 @@ npm run build    # production build — tested, passes clean (76 pages)
 /destinations/[slug]                 10 destination pages (fixes the 4 dead
                                       "#" links from the old WordPress site —
                                       New York, Toronto, Istanbul, Bali)
-/blog                                index — reads from WordPress
-/blog/[slug]                         post — reads from WordPress
+/blog                                index — from data/blogPosts.js
+/blog/[slug]                         post — from data/blogPosts.js
 /privacy-policy /refund-policy /terms-condition
 /sitemap.xml /robots.txt             auto-generated, covers all 76 routes
 ```
 
-## Editing content (no CMS needed)
+## Editing content
 
-Everything except the blog lives in `data/`:
+Content lives in `data/`:
 
 | File | Powers |
 |---|---|
@@ -48,56 +48,38 @@ Everything except the blog lives in `data/`:
 Add or edit an entry in the array → the page is generated automatically via
 `generateStaticParams()`. No routing code to touch.
 
-## Blog — connecting WordPress (headless)
+## Blog (local, no CMS)
 
-The blog is the one thing that changes often, so it's wired to your existing
-WordPress install as a headless CMS instead of hardcoded data.
+To add a post:
 
-**One-time setup on WordPress:**
+1. Create the body component in `components/blog/articles/<slug>.jsx` and
+   register it in that folder's `index.js`.
+2. Add its details (title, excerpt, dates, image, SEO text) at the top of
+   `data/blogPosts.js`.
+   Wrap the FAQ section in `<div className="faq">` and give each question
+   `className="faq-question"` so it gets the FAQ styling.
+3. Put images in `public/images/blog/`. Link to internal pages with relative
+   URLs ending in a slash, e.g. `/group-booking/`.
 
-1. Install and activate the **WPGraphQL** plugin (free, on wordpress.org).
-2. Optionally install **WPGraphQL SEO** if you use Yoast, so `seo.title` /
-   `seo.metaDesc` come through per-post.
-3. Confirm `https://your-wp-site.com/graphql` responds (WPGraphQL's default
-   endpoint).
+## Testing
 
-**One-time setup here:**
-
-1. Copy `.env.example` to `.env.local`.
-2. Set `WORDPRESS_API_URL=https://your-wp-site.com/graphql`.
-3. Redeploy. `/blog` and `/blog/[slug]` will now pull real posts.
-
-Until this is set, the blog renders 3 placeholder posts (see
-`lib/wordpress.js` → `MOCK_POSTS`) so the site still builds.
-
-**Keeping it fast without redeploying on every post:**
-
-- Pages revalidate automatically every hour (`revalidate = 3600` in
-  `app/blog/page.js` and `app/blog/[slug]/page.js`).
-- For instant updates the moment you hit Publish, install a webhook plugin
-  on WordPress (e.g. "WP Webhooks") and point it at:
-  ```
-  POST https://travelogroup.com/api/revalidate?secret=YOUR_REVALIDATE_SECRET
-  ```
-  on the `publish_post` / `save_post` event. Set the same secret in
-  `REVALIDATE_SECRET` in `.env.local`. See `app/api/revalidate/route.js`.
+```bash
+npm run build && npm start   # terminal 1
+npm run test:site            # terminal 2: 404s, broken links/images, SEO tags
+```
 
 ## Forms
 
-Two forms are UI-only right now, both marked `// TODO`:
-
-- `components/SearchWidget.jsx` (home page quote form)
-- `app/contact/page.js` (contact form)
-
-Wire these to your CRM / lead endpoint / email service.
+The quote and contact forms send mail through Zoho SMTP
+(`app/api/quote`, `app/api/contact`). Copy `.env.example` to `.env.local` and
+set the SMTP values there and on the host.
 
 ## SEO fixes vs. the old WordPress site
 
 - **Dead links fixed** — New York, Toronto, Istanbul, Bali destination pages
   now exist (`/destinations/[slug]`) instead of pointing at `#`.
 - **`sitemap.xml` and `robots.txt`** are auto-generated (`app/sitemap.js`,
-  `app/robots.js`) and cover all 76 routes, including blog posts pulled live
-  from WordPress.
+  `app/robots.js`) and cover all 76 routes, including blog posts.
 - **No duplicate/templated content** — each of the 18 airline pages, 12
   premium-class pages, and 16 deal pages has distinct copy (hub, alliance,
   fleet, or deal-specific tips) instead of one template with the name

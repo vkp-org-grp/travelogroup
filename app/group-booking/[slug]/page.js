@@ -4,9 +4,17 @@ import { Check, Phone, Users } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import GroupTravelGuide from '@/components/GroupTravelGuide';
+import DeltaGroupGuide from '@/components/airline-guides/DeltaGroupGuide';
+import UnitedGroupGuide from '@/components/airline-guides/UnitedGroupGuide';
 import { Reveal } from '@/components/Motion';
 import { airlines, getAirline } from '@/data/airlines';
 import { site } from '@/data/site';
+
+// Airlines with their own guide copy; the others use the shared GroupTravelGuide.
+const customGuides = {
+  'united-airlines-group-booking': UnitedGroupGuide,
+  'delta-airlines-group-booking': DeltaGroupGuide,
+};
 
 export function generateStaticParams() {
   return airlines.map((a) => ({ slug: a.slug }));
@@ -24,6 +32,7 @@ export function generateMetadata({ params }) {
 export default function AirlinePage({ params }) {
   const a = getAirline(params.slug);
   if (!a) notFound();
+  const CustomGuide = customGuides[a.slug];
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -98,7 +107,7 @@ export default function AirlinePage({ params }) {
         </div>
       </section>
 
-      <GroupTravelGuide airlineName={a.name} />
+      {CustomGuide ? <CustomGuide /> : <GroupTravelGuide airlineName={a.name} />}
 
       <CTASection heading={`Ready to book ${a.short}?`} body={`Confirm your ${a.short} group fare in minutes.`} />
     </>

@@ -1,7 +1,10 @@
 import LegalPage from '@/components/LegalPage';
 import { site } from '@/data/site';
 
-export const metadata = { title: 'Refund Policy' };
+export const metadata = {
+  title: 'Refund Policy',
+  description: 'Read the Travelogroup refund policy for group air ticket bookings, including cancellations, changes and refund timelines.',
+};
 
 export default function Refund() {
   return (

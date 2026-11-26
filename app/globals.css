@@ -96,6 +96,33 @@ body {
   }
 }
 
+/* Blog article body (components/blog/articles) */
+.article-body {
+  line-height: 1.6;
+}
+
+.article-body img {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* FAQ block: bold heading and questions, 15px before the next question */
+.article-body .faq > :first-child {
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.article-body .faq .faq-question {
+  font-weight: 700;
+}
+
+/* answer paragraph (also covers "question<br />answer" in one paragraph) */
+.article-body .faq p {
+  margin-bottom: 15px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

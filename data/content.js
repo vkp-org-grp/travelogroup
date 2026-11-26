@@ -34,35 +34,30 @@ export const testimonials = [
   {
     name: 'Ethan Miller',
     role: 'Group traveler',
-    avatar: 'https://airlinesgroupbookings.com/wp-content/uploads/2025/09/20240827103312.webp',
     quote:
       'Booking group flights used to be stressful. This team handled the fare, the seating, and the coordination without back-and-forth.',
   },
   {
     name: 'Sophia Bennett',
     role: 'Family reunion organizer',
-    avatar: 'https://airlinesgroupbookings.com/wp-content/uploads/2022/03/img5.jpeg',
     quote:
       'We booked for a family reunion and the process was fast and clear. Every option was explained before we committed.',
   },
   {
     name: 'Daniel Ruiz',
     role: 'School trip coordinator',
-    avatar: 'https://airlinesgroupbookings.com/wp-content/uploads/2022/03/cropped-img6.jpeg',
     quote:
       'I manage school trips every year. This was the easiest one yet — 42 seats held together, names finalized later.',
   },
   {
     name: 'Jackson Reid',
     role: 'Corporate travel lead',
-    avatar: 'https://airlinesgroupbookings.com/wp-content/uploads/2022/03/img4.jpeg',
     quote:
       'A schedule change came up last minute and they handled the rebooking for the whole team without us losing a seat.',
   },
   {
     name: 'Madison Parker',
     role: 'Sports team manager',
-    avatar: 'https://airlinesgroupbookings.com/wp-content/uploads/2022/03/img1.jpeg',
     quote:
       'Our team had overlapping schedules to coordinate. They matched everything and kept us within budget.',
   },

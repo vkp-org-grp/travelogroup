@@ -4,18 +4,18 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: process.env.WORDPRESS_HOSTNAME || 'airlinesgroupbookings.com' },
     ],
   },
   async redirects() {
     return [
+      // www -> non-www, same path
       {
-        source: '/:path*',
+        source: '/',
         has: [{ type: 'host', value: 'www.travelogroup.com' }],
         destination: 'https://travelogroup.com/',
         permanent: true,
       },
-      
+      // files (sitemap.xml, robots.txt, images…) keep no trailing slash
       {
         source: '/:file(.+\\.[a-zA-Z0-9]+)',
         has: [{ type: 'host', value: 'www.travelogroup.com' }],
