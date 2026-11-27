@@ -41,6 +41,8 @@ export default function AirlineGuideLayout({
   faqHeading,
   faqs,
   closing,
+  termsFirst = false,
+  processAfterAudience = false,
 }) {
   const b = (text) => emphasize(text, boldPattern);
 
@@ -49,10 +51,57 @@ export default function AirlineGuideLayout({
     '@type': 'FAQPage',
     mainEntity: faqs.map(([q, a]) => ({
       '@type': 'Question',
-      name: q,
+      name: q.replace(/^\d+\.\s*/, ''),
       acceptedAnswer: { '@type': 'Answer', text: a },
     })),
   };
+
+  const processBlock = (
+    <Reveal>
+      <h2 className={H2}>{processHeading}</h2>
+      <div className="mt-8 grid gap-8 sm:grid-cols-2">
+        {steps.map(([title, text], i) => (
+          <div key={title}>
+            <h3>
+              {i + 1}. {title}
+            </h3>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+    </Reveal>
+  );
+
+  const audienceSection = (
+    <section className={`${termsFirst ? 'bg-white' : 'bg-paper'} py-20`}>
+      <div className="wrap">
+        <Reveal>
+          <h2 className={H2}>{audienceHeading}</h2>
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {audiences.map(([title, text], i) => (
+            <Reveal key={title} delay={(i % 3) * 0.06}>
+              <div className="card h-full p-6">
+                <h3 className="font-display text-base font-bold">{title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-navy/60">{b(text)}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  const termsSection = (
+    <section className={`${termsFirst || processAfterAudience ? 'bg-paper' : 'bg-white'} py-20`}>
+      <div className={`wrap ${BODY}`}>
+        <Reveal>
+          <h2 className={H2}>{termsHeading}</h2>
+          <div className="mt-8 space-y-10">{terms}</div>
+        </Reveal>
+      </div>
+    </section>
+  );
 
   return (
     <>
@@ -76,59 +125,43 @@ export default function AirlineGuideLayout({
           <Reveal className="mt-14">
             <h2 className={H2}>{why.heading}</h2>
             <p className="mt-6">{b(why.intro)}</p>
-            <ul className="mt-4">
+            <ul className={why.checklist ? 'mt-4 !list-none !pl-0' : 'mt-4'}>
               {why.benefits.map(([title, text]) => (
-                <li key={title}>
-                  <strong>{title}:</strong> {b(text)}
+                <li key={text}>
+                  {why.checklist && <span aria-hidden="true">✅ </span>}
+                  {title && (
+                    <>
+                      <strong>{title}:</strong>{' '}
+                    </>
+                  )}
+                  {b(text)}
                 </li>
               ))}
             </ul>
           </Reveal>
 
-          <Reveal className="mt-14">
-            <h2 className={H2}>{processHeading}</h2>
-            <div className="mt-8 grid gap-8 sm:grid-cols-2">
-              {steps.map(([title, text], i) => (
-                <div key={title}>
-                  <h3>
-                    {i + 1}. {title}
-                  </h3>
-                  <p>{text}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+          {!processAfterAudience && <div className="mt-14">{processBlock}</div>}
         </div>
       </section>
 
-      <section className="bg-paper py-20">
-        <div className="wrap">
-          <Reveal>
-            <h2 className={H2}>{audienceHeading}</h2>
-          </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {audiences.map(([title, text], i) => (
-              <Reveal key={title} delay={(i % 3) * 0.06}>
-                <div className="card h-full p-6">
-                  <h3 className="font-display text-base font-bold">{title}</h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-navy/60">{b(text)}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {termsFirst ? (
+        <>
+          {termsSection}
+          {audienceSection}
+        </>
+      ) : (
+        <>
+          {audienceSection}
+          {processAfterAudience && (
+            <section className="bg-white py-20">
+              <div className={`wrap ${BODY}`}>{processBlock}</div>
+            </section>
+          )}
+          {termsSection}
+        </>
+      )}
 
-      <section className="bg-white py-20">
-        <div className={`wrap ${BODY}`}>
-          <Reveal>
-            <h2 className={H2}>{termsHeading}</h2>
-            <div className="mt-8 space-y-10">{terms}</div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="bg-paper py-20">
+      <section className={`${processAfterAudience ? 'bg-white' : 'bg-paper'} py-20`}>
         <div className={`wrap ${BODY}`}>
           <Reveal>
             <h2 className={H2}>{faqHeading}</h2>
@@ -144,7 +177,7 @@ export default function AirlineGuideLayout({
         </div>
       </section>
 
-      <section className="bg-white py-20">
+      <section className={`${processAfterAudience ? 'bg-paper' : 'bg-white'} py-20`}>
         <div className="wrap max-w-[700px] text-center">
           <Reveal>
             <h2 className={H2}>{closing.heading}</h2>

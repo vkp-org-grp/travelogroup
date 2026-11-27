@@ -6,6 +6,9 @@ import CTASection from '@/components/CTASection';
 import GroupTravelGuide from '@/components/GroupTravelGuide';
 import DeltaGroupGuide from '@/components/airline-guides/DeltaGroupGuide';
 import UnitedGroupGuide from '@/components/airline-guides/UnitedGroupGuide';
+import AmericanGroupGuide from '@/components/airline-guides/AmericanGroupGuide';
+import JetBlueGroupGuide from '@/components/airline-guides/JetBlueGroupGuide';
+import AlaskaGroupGuide from '@/components/airline-guides/AlaskaGroupGuide';
 import { Reveal } from '@/components/Motion';
 import { airlines, getAirline } from '@/data/airlines';
 import { site } from '@/data/site';
@@ -14,6 +17,9 @@ import { site } from '@/data/site';
 const customGuides = {
   'united-airlines-group-booking': UnitedGroupGuide,
   'delta-airlines-group-booking': DeltaGroupGuide,
+  'american-airlines-group-booking': AmericanGroupGuide,
+  'jetblue-group-booking': JetBlueGroupGuide,
+  'alaska-airlines-group-booking': AlaskaGroupGuide,
 };
 
 export function generateStaticParams() {
