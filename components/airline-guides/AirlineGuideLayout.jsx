@@ -43,6 +43,8 @@ export default function AirlineGuideLayout({
   closing,
   termsFirst = false,
   processAfterAudience = false,
+  beforeProcess,
+  afterProcess,
 }) {
   const b = (text) => emphasize(text, boldPattern);
 
@@ -128,7 +130,7 @@ export default function AirlineGuideLayout({
             <ul className={why.checklist ? 'mt-4 !list-none !pl-0' : 'mt-4'}>
               {why.benefits.map(([title, text]) => (
                 <li key={text}>
-                  {why.checklist && <span aria-hidden="true">✅ </span>}
+                  {why.checklist && <span aria-hidden="true">{why.checklist === true ? '✅' : why.checklist} </span>}
                   {title && (
                     <>
                       <strong>{title}:</strong>{' '}
@@ -140,7 +142,11 @@ export default function AirlineGuideLayout({
             </ul>
           </Reveal>
 
+          {beforeProcess && <Reveal className="mt-14">{beforeProcess}</Reveal>}
+
           {!processAfterAudience && <div className="mt-14">{processBlock}</div>}
+
+          {afterProcess && <Reveal className="mt-14">{afterProcess}</Reveal>}
         </div>
       </section>
 
